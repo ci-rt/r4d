@@ -1,0 +1,249 @@
+#!/usr/bin/env python
+#
+# r4dcfg - config tool for r4d database rack infrastructure control
+#
+# Copyright (C) 2016  Linutronix GmbH
+# Author: Benedikt Spranger <b.spranger@linutronix.de>
+#
+# This file is part of r4d.
+#
+# r4d is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# r4d is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with r4d.  If not, see <http://www.gnu.org/licenses/>.
+
+from r4d.config import R4DdConfig
+from r4d.db import R4DDataBase
+from r4d.tools import register_modules
+from r4d.version import r4d_version
+
+from r4d.powerservice import PowerService
+from r4d.serialservice import SerialService
+from r4d.boardservice import BoardService
+from r4d.rackservice import RackService
+
+import logging
+import time
+import pysimplesoap
+
+import r4d.power
+import r4d.serial
+
+from argparse import ArgumentParser
+
+log = logging.getLogger ("r4dcfg")
+
+if __name__ == "__main__":
+
+    logging.basicConfig ()
+    parser = ArgumentParser (description = 'r4d dbconfig and test tool v' + r4d_version)
+    parser.add_argument ('-c', '--config',
+                         help = 'use configuration CONFIG',
+                         default = '/etc/r4dd.cfg')
+
+    parser.add_argument ('-v', '--verbose',
+                         nargs = '?',
+                         help = 'enable verbose messages',
+                         const = "INFO")
+
+    group = parser.add_mutually_exclusive_group()
+
+    group.add_argument ('--show-db',
+                        action = "store_true",
+                        help = 'show DB')
+
+    group.add_argument ('--add-power',
+                        action = "store_true",
+                        help = 'add a new power switch')
+
+    group.add_argument ('--poweron',
+                        action = "store_true",
+                        help = 'power board')
+
+    group.add_argument ('--poweroff',
+                        action = "store_true",
+                        help = 'poweroff board')
+
+    group.add_argument ('--powercycle',
+                        action = "store_true",
+                        help = 'powercycle board')
+
+    group.add_argument ('--list-power',
+                        action = "store_true",
+                        help = 'lists configured power switches')
+
+    group.add_argument ('--add-serial',
+                         action="store_true",
+                         help = 'add a new serial console server')
+
+    group.add_argument ('--list-serial',
+                         action="store_true",
+                         help = 'lists configured serial console servers')
+
+    group.add_argument ('--add-board',
+                        action = "store_true",
+                        help = 'add a new board')
+
+    group.add_argument ('--move-board',
+                        action = "store_true",
+                        help = 'move a board to another rack/slot')
+
+    group.add_argument ('--delete-board',
+                        action = "store_true",
+                        help = 'delete board from DB')
+
+    group.add_argument ('--list-boards',
+                        action = "store_true",
+                        help = 'list configured boards')
+
+    group.add_argument ('--add-rack',
+                        action = "store_true",
+                        help = 'add a new rack')
+
+    group.add_argument ('--list-racks',
+                        action = "store_true",
+                        help = 'list configured racks')
+
+
+    args, extra = parser.parse_known_args ()
+
+    loglevel = None
+    if args.verbose:
+        loglevel = getattr (logging, args.verbose.upper (), None)
+
+    config = R4DdConfig (configname = args.config)
+    db = R4DDataBase (config)
+    power = PowerService (db, None)
+    serial = SerialService (db, None)
+    board = BoardService (db, None)
+    rack = RackService (db, None)
+
+    if args.list_power:
+        r = power.list_power ()
+        if (r['result'] == -1):
+            log.error(" failed to get list of power controls")
+            exit (-1)
+        for p in r['list']:
+            print ('ID: %d\tHost: %s\tModel: %s\tPorts: %d' % (
+                               p['id'], p['host'], p['model'], len(p['ports'])))
+        exit (0)
+
+    if args.list_serial:
+        r = serial.list_serial ()
+        if (r['result'] == -1):
+            log.error(" failed to get list of power controls")
+            exit (-1)
+        for s in r['list']:
+            print ('ID: %d\tHost: %s\tModel: %s\tPorts: %d' % (
+                               s['id'], s['host'], s['model'], len(s['ports'])))
+        exit (0)
+
+    if args.list_boards:
+        r = board.list_boards ()
+        if (r['result'] == -1):
+            log.error(" failed to get list of boards")
+            exit (-1)
+        for s in r['list']:
+            try:
+                console = serial.get_serial (s['name'])
+                powerstate = power.status(s['name'])
+            except pysimplesoap.server.SoapFault as e:
+                # rack without serial and/or power server
+                console = { 'host': 'unknown', 'port': -1 }
+                powerstate = -1
+            print ('ID[%d]: %s\tName: %s\tRack: %s\tPort: %d\tserial: %s:%d' % (
+                       powerstate, s['uuid'], s['name'],
+                       s['rack'], s['port'], console['host'], console['port']))
+        exit (0)
+
+    if args.list_racks:
+        rl = rack.list_racks ()
+        for r in rl:
+            print ('ID: %s\tName: %s\tLocation: %s' % (
+                r['id'], r['name'], r['location']))
+        exit (0)
+
+    if args.poweron:
+        parser.add_argument ("name", type = str, help = "board name")
+        eargs = parser.parse_args (extra)
+        ret = power.change (eargs.name, 1)
+        if not ret['state']:
+            log.error(" powerctl failed")
+            exit (-1)
+        exit (0)
+
+    if args.poweroff:
+        parser.add_argument ("name", type = str, help = "board name")
+        eargs = parser.parse_args (extra)
+        ret = power.change (eargs.name, 0)
+        if not ret['state']:
+            log.error(" powerctl failed")
+            exit (-1)
+        exit (0)
+
+    if args.powercycle:
+        parser.add_argument ("name", type = str, help = "board name")
+        eargs = parser.parse_args (extra)
+        ret = power.change (eargs.name, 0)
+        if not ret['state']:
+            log.error(" powerctl failed")
+            exit (-1)
+        time.sleep (5)
+        ret = power.change (eargs.name, 1)
+        if not ret['state']:
+            log.error(" powerctl failed")
+            exit (-1)
+        exit (0)
+
+    if args.show_db:
+        db.print_config ()
+        exit (0)
+
+    if args.add_rack:
+        parser.add_argument ("name", type = str, help = "rack name")
+        parser.add_argument ("location", type = str, help = "rack location")
+        eargs = parser.parse_args (extra)
+        rack.add_rack (eargs.name, eargs.location)
+        exit (0)
+
+    if args.delete_board:
+        parser.add_argument ("name", type = str, help = "board name")
+        eargs = parser.parse_args (extra)
+        board.delete_board (eargs.name)
+        exit (0)
+
+    parser.add_argument ("rack", type = str, help = "rack name")
+
+    if args.add_board:
+        parser.add_argument ("slot", type = int, help = "slot position in rack")
+        parser.add_argument ("name", type = str, help = "board name")
+        eargs = parser.parse_args (extra)
+        board.add_board (eargs.name, eargs.rack, eargs.slot)
+        exit (0)
+
+    if args.move_board:
+        parser.add_argument ("slot", type = int, help = "destination slot in rack")
+        parser.add_argument ("name", type = str, help = "board name")
+        eargs = parser.parse_args (extra)
+        board.move_board (eargs.name, eargs.rack, eargs.slot)
+        exit (0)
+
+    parser.add_argument ("model", type = str, help = "model name")
+    parser.add_argument ("host", type = str, help = "hostname or IP")
+    eargs = parser.parse_args (extra)
+
+    if args.add_power:
+        power.add_power (eargs.model, eargs.host, eargs.rack)
+
+    if args.add_serial:
+        serial.add_serial (eargs.model, eargs.host, eargs.rack)
+
+    exit (0)
