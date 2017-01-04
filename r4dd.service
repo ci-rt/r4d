@@ -1,0 +1,10 @@
+[Unit]
+Description=r4d server
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+ExecStart=/usr/bin/r4dd -c /etc/r4dd.cfg
+[Install]
+WantedBy=default.target

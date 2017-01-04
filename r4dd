@@ -1,0 +1,55 @@
+#!/usr/bin/env python
+#
+# r4d daemon - for r4d rack infrastructure control
+#
+# Copyright (C) 2016  Linutronix GmbH
+# Author: Benedikt Spranger <b.spranger@linutronix.de>
+#
+# This file is part of r4d.
+#
+# r4d is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# r4d is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with r4d.  If not, see <http://www.gnu.org/licenses/>.
+
+import logging
+import sys
+
+from argparse import ArgumentParser, FileType
+from r4d.r4dd import R4Dd
+from r4d.version import r4d_version
+
+if __name__ == "__main__":
+    parser = ArgumentParser (description = 'R4D Daemon v' + r4d_version)
+    parser.add_argument ('-c', '--config',
+                         help = 'use configuration CONFIG',
+                         default = 'r4dd.conf')
+
+    parser.add_argument ('-l', '--logfile',
+                         help = 'log to LOGFILE',
+                         type = FileType ('w'),
+                         default = sys.stderr)
+
+    parser.add_argument ('-v', '--verbose',
+                         nargs = '?',
+                         help = 'enable verbose messages',
+                         const = "INFO")
+
+    args = parser.parse_args ()
+
+    loglevel = None
+    if args.verbose:
+        loglevel = getattr (logging, args.verbose.upper (), None)
+    logging.basicConfig (stream = args.logfile, level = loglevel)
+
+    r4dd = R4Dd (args.config)
+
+    r4dd.main ()
