@@ -1,0 +1,31 @@
+.\" Manpage for r4dd.
+.\" Contact b.spranger@linutronix.de to correct errors or typos.
+.TH man 8 "13 Apr 2017" "1.0" "r4dd man page"
+.SH NAME
+r4dd \- Remote For Device-under-test (R4D) Daemon
+.SH SYNOPSIS
+r4dd [-h] [-c CONFIG] [-l LOGFILE] [-v [VERBOSE]]
+.SH DESCRIPTION
+Remote For Device-under-test (R4D) Daemon acts as controlling server for test
+racks. Each Rack contains a serial device server and a power control switch.
+A rack can host several DUTs (device-under-test).
+r4d connects to the serial device server and the power switch to perform
+actions on user request. A user connects to r4d through a SOAP interface.
+.SH OPTIONS
+.TP
+\fB\-c \fICONFIG\fP, \-\-config\fP \fICONFIG\fP
+use configuration file CONFIG.
+.TP
+\fB\-h \-\-help\fP
+show a help message and exit.
+.TP
+\fB\-l \fILOGFILE\fP, \-\-logfile\fP \fILOGFILE\fP
+log messages to file LOGFILE.
+.TP
+\fB\-v \f[VERBOSITY]\fP, \-\-verbose\fP \fIVERBOSITY\fP
+enable verbose messages and set verbosity level to VERBOSITY.
+If no VERBOSITY is given the verbosity level is set to 1.
+.SH AUTHOR
+Benedikt\ Spranger\ (b.spranger@linutronix.de)
+.BR
+Manuel\ Traut\ (m.traut@linutronix.de)

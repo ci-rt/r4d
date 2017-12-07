@@ -1,0 +1,69 @@
+.\" Manpage for r4dcfg.
+.\" Contact b.spranger@linutronix.de to correct errors or typos.
+.TH man 8 "13 Apr 2017" "1.0" "r4dcfg man page"
+.SH NAME
+r4dd \- Remote For Device-under-test (R4D) Administration and Test Tool
+.SH SYNOPSIS
+r4dcfg [-h] [-c CONFIG] [-v [VERBOSE]]
+[--show-db | --add-power | --poweron | --poweroff | --powercycle |
+ --list-power | --add-serial | --list-serial | --add-board | --move-board |
+ --delete-board | --list-boards | --add-rack | --list-racks]
+.SH DESCRIPTION
+Remote For Device-under-test (R4D)
+.SH OPTIONS
+.TP
+\fB\-c \fICONFIG\fP, \-\-config\fP \fICONFIG\fP
+use configuration file CONFIG.
+.TP
+\fB\-h \-\-help\fP
+show a help message and exit.
+.TP
+\fB\-v \f[VERBOSITY]\fP, \-\-verbose\fP \fIVERBOSITY\fP
+enable verbose messages and set verbosity level to VERBOSITY.
+If no VERBOSITY is given the verbosity level is set to 1.
+.TP
+\fB\-\-show\-db\fP
+show DB
+.TP
+\fB\-\-add\-power\fP
+add a new power switch
+.TP
+\fB\-\-poweron\fP
+power board
+.TP
+\fB\-\-poweroff\fP
+poweroff board
+.TP
+\fB\-\-powercycle\fP
+powercycle board
+.TP
+\fB\-\-list\-power\fP
+lists configured power switches
+.TP
+\fB\-\-add\-serial\fP
+add a new serial console server
+.TP
+\fB\-\-list\-serial\fP
+lists configured serial console servers
+.TP
+\fB\-\-add\-board\fP
+add a new board
+.TP
+\fB\-\-move\-board\fP
+move a board to another rack/slot
+.TP
+\fB\-\-delete\-board\fP
+delete board from DB
+.TP
+\fB\-\-list\-boards\fP
+list configured boards
+.TP
+\fB\-\-add\-rack\fP
+add a new rack
+.TP
+\fB\-\-list\-racks\fP
+list configured racks
+.SH AUTHOR
+Benedikt\ Spranger\ (b.spranger@linutronix.de)
+.BR
+Manuel\ Traut\ (m.traut@linutronix.de)

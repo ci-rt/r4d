@@ -17,6 +17,8 @@ setup(name='r4d',
       package_data = {'r4d': ["power/*.txt"]},
       scripts=['r4dd', 'r4dcfg'],
       data_files= [
+          ('share/man8/', glob("docs/r4dcfg.8")),
+          ('share/man8/', glob("docs/r4dd.8")),
           ('/usr/share/doc/r4dd/', glob("README.adoc")),
           ('/etc/',                glob("r4dd.cfg")),
           ('/lib/systemd/system',  glob("r4dd.service"))],
