@@ -18,7 +18,6 @@ setup(name='r4d',
       scripts=['r4dd', 'r4dcfg'],
       data_files= [
           ('/usr/share/doc/r4dd/', glob("README.adoc")),
-          ('/usr/share/r4dd/',     glob("r4d.sqlite")),
           ('/etc/',                glob("r4dd.cfg")),
           ('/lib/systemd/system',  glob("r4dd.service"))],
 )
