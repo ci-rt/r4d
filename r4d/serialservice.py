@@ -103,8 +103,8 @@ class SerialService (object):
             port = session.query (SerialPort).filter_by (serialcontrol_id = serial.id, port = board.slot.position).one ()
             serport = {'host': serial.URI, 'port': port.udpport}
         except Exception as e:
-            raise SoapFault (faultcode = "PowerStatusFailed",
-                             faultstring = "get status of {} failed".format (system),
+            raise SoapFault (faultcode = "SerialGetSerialFailed",
+                             faultstring = "get serial of {} failed".format (system),
                              detail = e)
         finally:
             session.close ()
