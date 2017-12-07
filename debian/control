@@ -3,21 +3,23 @@ Section: misc
 Priority: optional
 Maintainer: Benedikt Spranger <b.spranger@linutronix.de>
 Build-Depends: dh-python,
-  debhelper (>= 7),
+  debhelper (>= 9.20160709~),
   python (>= 2.7~),
   git
-Standards-Version: 3.9.6
+Standards-Version: 4.1.2
 Homepage: http://ci-rt.linutronix.de
 
 Package: r4d
 Architecture: all
 Depends: ${misc:Depends},
+  ${python:Depends},
   python (>= 2.7~),
-  sqlite3,
   python-sqlalchemy,
   python-pysimplesoap,
   snimpy,
-  snmp-mibs-downloader
+  snmp-mibs-downloader,
+  sqlite3,
+  lsb-base
 Description: Remote For Device-under-test (R4D) Daemon
  Remote For Device-under-test (R4D) Daemon acts as controlling server for test
  racks. Each Rack contains a serial device server and a power control switch.
