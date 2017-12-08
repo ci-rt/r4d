@@ -56,8 +56,9 @@ class net8x (PowerControl):
                                                               port,
                                                               state)
         log.info (req)
-        with urlopen (req) as f:
-            log.info (f.read ())
+        f = urlopen (req)
+        log.info (f.read ())
+        f.close ()
 
     def num_ports (self):
         return 8
@@ -71,8 +72,9 @@ class net8x (PowerControl):
     def powerstatus (self, port):
         self.parser.status = {}
 
-        with urlopen ("http://" + self.URI) as f:
-            self.parser.feed (f.read ().decode ('utf-8'))
+        f = urlopen ("http://" + self.URI)
+        self.parser.feed (f.read ().decode ('utf-8'))
+        f.close()
 
         try:
             return self.parser.status [port]
