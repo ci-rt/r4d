@@ -1,3 +1,9 @@
+r4d (1.2) unstable; urgency=medium
+
+  * bugfix: make net8x plugin working
+
+ -- Manuel Traut <manut@linutronix.de>  Fri, 08 Dec 2017 13:40:38 +0100
+
 r4d (1.1) unstable; urgency=medium
 
   * improve debianization
