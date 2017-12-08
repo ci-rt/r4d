@@ -1,3 +1,11 @@
+r4d (1.1) unstable; urgency=medium
+
+  * improve debianization
+  * add man-page
+  * improve db initialization and installlation of systemd service file
+
+ -- Manuel Traut <manut@linutronix.de>  Fri, 08 Dec 2017 08:27:21 +0100
+
 r4d (1.0) unstable; urgency=medium
 
   * initial version
