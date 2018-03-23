@@ -16,7 +16,7 @@ Depends: ${misc:Depends},
   python (>= 2.7~),
   python-sqlalchemy,
   python-pysimplesoap,
-  snimpy,
+  python-snimpy,
   snmp-mibs-downloader,
   sqlite3,
   lsb-base
