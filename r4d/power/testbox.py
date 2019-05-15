@@ -28,6 +28,7 @@ log = logging.getLogger (__name__)
 def register (parent):
     log.debug ("register " + __name__)
     parent._add_model ('testbox', testbox)
+    parent._add_model ('testbox-atx', testboxatx)
 
 class testbox (PowerControl):
     __mapper_args__ = {'polymorphic_identity': 'testbox'}
@@ -49,3 +50,14 @@ class testbox (PowerControl):
             return int(t)
 
         return -1
+
+class testboxatx (testbox):
+    def atx_toggle(self):
+        with open("/sys/class/leds/lamobo_r1:opto:relay/brightness", "w") as gpio:
+            gpio.write("255")
+            time.sleep(0.5)
+            gpio.write("0")
+
+    def poweron (self, port):
+        super().poweron(port)
+        atx_toggle()
