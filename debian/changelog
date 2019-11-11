@@ -1,3 +1,12 @@
+r4d (1.4) unstable; urgency=medium
+
+  * Build deb for Python 3
+  * Use debhelper-compat
+  * Update Standards-Version
+  * Add support for Gude Expert Power Control 8210 / 8211 firmware v4.x
+
+ -- Benedikt Spranger <b.spranger@linutronix.de>  Wed, 29 Jan 2020 07:45:06 +0100
+
 r4d (1.3) unstable; urgency=medium
 
   * Add testbox power and serial control
