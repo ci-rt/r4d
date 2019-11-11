@@ -3,7 +3,7 @@ Section: misc
 Priority: optional
 Maintainer: Benedikt Spranger <b.spranger@linutronix.de>
 Build-Depends: dh-python,
-  debhelper (>= 9.20160709~),
+  debhelper-compat (= 12),
   python3-all,
   python3-future,
   python3-setuptools,
