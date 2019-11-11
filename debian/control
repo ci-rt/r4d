@@ -4,19 +4,20 @@ Priority: optional
 Maintainer: Benedikt Spranger <b.spranger@linutronix.de>
 Build-Depends: dh-python,
   debhelper (>= 9.20160709~),
-  python (>= 2.7~),
-  git
+  python3-all,
+  python3-future,
+  python3-setuptools,
+  python3-sqlalchemy
 Standards-Version: 4.1.2
 Homepage: http://ci-rt.linutronix.de
 
 Package: r4d
 Architecture: all
 Depends: ${misc:Depends},
-  ${python:Depends},
-  python (>= 2.7~),
-  python-sqlalchemy,
-  python-pysimplesoap,
-  python-snimpy,
+  ${python3:Depends},
+  python3-sqlalchemy,
+  python3-pysimplesoap,
+  python3-snimpy,
   snmp-mibs-downloader,
   sqlite3,
   lsb-base
