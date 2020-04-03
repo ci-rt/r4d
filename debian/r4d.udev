@@ -1,7 +1,0 @@
-ACTION=="remove", GOTO="leds_end"
-SUBSYSTEM!="leds", GOTO="leds_end"
-
-KERNEL=="lamobo_r1:opto:*", ACTION=="add", RUN+="/bin/chgrp -R www-data /sys%p", RUN+="/bin/chmod -R g=u /sys%p"
-KERNEL=="lamobo_r1:opto:*", ACTION=="change", ENV{TRIGGER}!="none", RUN+="/bin/chgrp -R www-data /sys%p", RUN+="/bin/chmod -R g=u /sys%p"
-
-LABEL="leds_end"
