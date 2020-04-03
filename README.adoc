@@ -24,13 +24,12 @@ r4d://localhost:8008 console juno64'
 
 Prerequisite
 ------------
-On Debian Jessie systems you can simply run:
-"sudo apt install sqlite3 python-sqlalchemy python-pysimplesoap python-snimpy snmp-mibs-downloader"
+On Debian systems you can simply run:
+"sudo apt install sqlite3 python3-sqlalchemy python3-pysimplesoap python3-snimpy snmp-mibs-downloader"
 to satisfy all runtime dependencies.
 
 Note, that the 'snmp-mibs-downloader' package is in the non-free section of
-Debian and 'python-pysimplesoap' package is in the jessie-backports section
-of Debian.
+Debian.
 
 Build and install as a Debian Package
 -------------------------------------
@@ -105,26 +104,7 @@ The following models are supported:
 $ r4dcfg --add-power ci-linux-rack3 pc8210 ci-linux-rack3-power.tec.company.de
 ------------------------------------------------------------------------------
 
-If you get an error like this
-
----------------------------------------------------------------------
-r4d-python$ ./r4dcfg -v --add-power ci-linux-rack3 pc8210 ci-linux-rack3-power.tec.company.de
-Traceback (most recent call last):
-  File "./r4dcfg", line 128, in <module>
-    power.add_power (eargs.model, eargs.host)
-  File "/home/manut/r4d-python/r4d/powercb.py", line 72, in add_power
-    for i in range (1, power.num_ports () + 1):
-  File "/home/manut/r4d-python/r4d/power/pc8210.py", line 42, in num_ports
-    ret = m.epc8portNumber
-  File "/usr/lib/python2.7/dist-packages/snimpy/manager.py", line 318, in __getattribute__
-    oid, result = self._session.get(a.oid + (0,))[0]
-  File "/usr/lib/python2.7/dist-packages/snimpy/snmp.py", line 286, in get
-    return self._op(self._cmdgen.getCmd, *oids)
-  File "/usr/lib/python2.7/dist-packages/snimpy/snmp.py", line 258, in _op
-    raise SNMPException(str(errorIndication))
-snimpy.snmp.SNMPException: No SNMP response received before timeout
----------------------------------------------------------------------
-
+If you get the error "No SNMP response received before timeout"
 you need to activate enable SNMP get for public and set for private in the
 config / SNMP section of the webinterface of the power control switch.
 
