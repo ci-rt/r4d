@@ -22,4 +22,7 @@ setup(name='r4d',
           ('/usr/share/doc/r4dd/', glob("README.adoc")),
           ('/etc/',                glob("r4dd.cfg")),
           ('/lib/systemd/system',  glob("r4dd.service"))],
+      classifiers=[
+          'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',
+      ],
 )
