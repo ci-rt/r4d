@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from glob import glob
-from distutils.core import setup
+from setuptools import setup
 
 from r4d.version import r4d_version
 
