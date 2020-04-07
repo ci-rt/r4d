@@ -18,4 +18,4 @@
 # You should have received a copy of the GNU General Public License
 # along with r4d.  If not, see <http://www.gnu.org/licenses/>.
 
-r4d_version = "1.2"
+r4d_version = "1.3"
