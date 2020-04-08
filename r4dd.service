@@ -1,5 +1,6 @@
 [Unit]
 Description=r4d server
+Documentation=man:r4dd(8)
 After=network.target
 
 [Service]
