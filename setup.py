@@ -5,9 +5,13 @@ from setuptools import setup
 
 from r4d.version import r4d_version
 
+with open("README.rst") as f:
+    long_description = f.read()
+
 setup(name='r4d',
       version=r4d_version,
       description='R4D Daemon',
+      long_description=long_description,
       author='Benedikt Spranger',
       author_email='b.spranger@linutronix.de',
       url='http://ci-rt.linutronix.de/',
@@ -19,7 +23,6 @@ setup(name='r4d',
       data_files= [
           ('share/man8/', glob("docs/r4dcfg.8")),
           ('share/man8/', glob("docs/r4dd.8")),
-          ('/usr/share/doc/r4dd/', glob("README.adoc")),
           ('/etc/',                glob("r4dd.cfg")),
           ('/lib/systemd/system',  glob("r4dd.service"))],
       classifiers=[
