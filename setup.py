@@ -24,8 +24,6 @@ setup(name='r4d',
                         'SQLAlchemy' ],
       scripts=['r4dd', 'r4dcfg'],
       data_files= [
-          ('share/man8/', glob("docs/r4dcfg.8")),
-          ('share/man8/', glob("docs/r4dd.8")),
           ('/etc/',                glob("r4dd.cfg")),
           ('/lib/systemd/system',  glob("r4dd.service"))],
       classifiers=[
