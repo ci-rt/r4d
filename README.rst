@@ -31,11 +31,10 @@ to satisfy all runtime dependencies.
 Note, that the 'snmp-mibs-downloader' package is in the non-free section of
 Debian.
 
-Build and install as a Debian Package
--------------------------------------
-Use 'dpkg-buildpackage' and 'sudo dpkg -i ../r4d_*_all.deb' to build and install
-r4dd as a debian package. The so installed systemd service file can be used to
-control the daemon:
+Install and run systemd service
+-------------------------------
+Use 'python3 setup.py install' to build and install r4d.
+The so installed systemd service file can be used to control the daemon:
 
     $ systemctl enable r4dd # start it automatically during system boot
     $ systemctl start r4dd  # start it manually (once)
