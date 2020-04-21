@@ -25,7 +25,7 @@ r4d://localhost:8008 console juno64'
 Prerequisite
 ------------
 On Debian systems you can simply run:
-"sudo apt install sqlite3 python3-sqlalchemy python3-pysimplesoap python3-snimpy snmp-mibs-downloader"
+"sudo apt install python3-sqlalchemy python3-pysimplesoap python3-snimpy snmp-mibs-downloader"
 to satisfy all runtime dependencies.
 
 Note, that the 'snmp-mibs-downloader' package is in the non-free section of
