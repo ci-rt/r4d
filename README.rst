@@ -71,7 +71,7 @@ If no file is given, the above config reflects the defaults.
 
 To add a new power switch, serial console server or a testsystem the
 commandline tool "r4dcfg" can be used. This tool should be executed as
-the same user who runs the deamon. The daemon creates the database.
+the same user who runs the daemon. The daemon creates the database.
 
 Add rack
 ~~~~~~~~

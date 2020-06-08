@@ -68,7 +68,7 @@ class PowerService (object):
 
         rack  = session.query(Rack).filter(Rack.name == _rack).one ()
         if rack.powercontrol:
-            log.error (" a powercontrol is already asigned to this rack")
+            log.error (" a powercontrol is already assigned to this rack")
             return -1
 
         power = M (URI = host, rack_id = rack.id)
