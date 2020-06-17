@@ -63,7 +63,7 @@ The format of /etc/r4dd.cfg looks like this:
   port=8008
   [db]
   echo=0
-  uri=sqlite:////usr/share/r4dd/r4d.sqlite
+  uri=sqlite:////var/lib/r4d/r4d.sqlite
   user=None
   password=None
 
