@@ -14,8 +14,3 @@ generated-doc/
 r4d.egg-info/
 
 build/
-debian/debhelper-build-stamp
-debian/files
-debian/r4d.debhelper.log
-debian/r4d.substvars
-debian/r4d/
