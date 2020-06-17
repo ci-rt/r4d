@@ -6,6 +6,6 @@ After=network.target
 [Service]
 Type=simple
 User=www-data
-ExecStart=/usr/bin/r4dd -c /etc/r4dd.cfg
+ExecStart=/usr/bin/r4dd -c /etc/r4d.cfg
 [Install]
 WantedBy=default.target

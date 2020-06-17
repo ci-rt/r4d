@@ -24,7 +24,7 @@ setup(name='r4d',
                         'SQLAlchemy' ],
       scripts=['r4dd', 'r4dcfg'],
       data_files= [
-          ('/etc/',                glob("r4dd.cfg")),
+          ('/etc/',                glob("r4d.cfg")),
           ('/lib/systemd/system',  glob("r4dd.service"))],
       classifiers=[
           'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',

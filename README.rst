@@ -52,9 +52,9 @@ Config file
 The listen interface and port and the used database backend can be altered via
 config file that can be passed to r4dd with the -c parameter:
 
-    $ r4dd -c /etc/r4dd.cfg
+    $ r4dd -c /etc/r4d.cfg
 
-The format of /etc/r4dd.cfg looks like this:
+The format of /etc/r4d.cfg looks like this:
 
 ::
 

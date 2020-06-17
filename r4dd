@@ -31,7 +31,7 @@ if __name__ == "__main__":
     parser = ArgumentParser (description = 'R4D Daemon v' + r4d_version)
     parser.add_argument ('-c', '--config',
                          help = 'use configuration CONFIG',
-                         default = 'r4dd.conf')
+                         default = 'r4d.cfg')
 
     parser.add_argument ('-l', '--logfile',
                          help = 'log to LOGFILE',

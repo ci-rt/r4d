@@ -47,7 +47,7 @@ if __name__ == "__main__":
     parser = ArgumentParser (description = 'r4d dbconfig and test tool v' + r4d_version)
     parser.add_argument ('-c', '--config',
                          help = 'use configuration CONFIG',
-                         default = '/etc/r4dd.cfg')
+                         default = '/etc/r4d.cfg')
 
     parser.add_argument ('-v', '--verbose',
                          nargs = '?',
