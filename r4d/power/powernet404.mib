@@ -167,10 +167,10 @@ PowerNet-MIB DEFINITIONS ::= BEGIN
 
 IMPORTS
    enterprises, IpAddress, Gauge, TimeTicks             FROM RFC1155-SMI
-   DisplayString                                        FROM RFC1213-MIB
-   OBJECT-TYPE                                          FROM RFC-1212
-   TRAP-TYPE                                            FROM RFC-1215;
-
+   DisplayString                                        FROM RFC1213-MIB;
+--   OBJECT-TYPE                                          FROM RFC-1212
+--   TRAP-TYPE                                            FROM RFC-1215;
+--
 apc                            OBJECT IDENTIFIER ::=  { enterprises 318 }
 
 products                       OBJECT IDENTIFIER ::=  { apc 1 }

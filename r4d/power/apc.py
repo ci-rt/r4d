@@ -43,11 +43,11 @@ class apc (PowerControl):
     def poweron (self, port):
         numeric = int(port);
         m = Manager (self.URI, "private", 2)
-        m.ePDUOutletControlOutletCommand[port] = 'immediateOn'
+        m.sPDUOutletCtl[port] = 'outletOn'
 
     def poweroff (self, port):
         m = Manager (self.URI, "private", 2)
-        m.ePDUOutletControlOutletCommand[port] = 'immediateOff'
+        m.sPDUOutletCtl[port] = 'outletOff'
 
     def powerstatus (self, port):
         m = Manager (self.URI, "public", 2)
