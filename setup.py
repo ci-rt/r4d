@@ -18,7 +18,7 @@ setup(name='r4d',
       packages=['r4d', \
                 'r4d.power', \
                 'r4d.serial' ],
-      package_data = {'r4d': ["power/*.txt"]},
+      package_data = {'r4d': ["power/*.txt","power/*.mib"]},
       install_requires=['PySimpleSOAP',
                         'snimpy',
                         'SQLAlchemy' ],
