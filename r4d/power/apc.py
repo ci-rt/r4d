@@ -18,6 +18,27 @@
 # You should have received a copy of the GNU General Public License
 # along with r4d.  If not, see <http://www.gnu.org/licenses/>.
 
+# SWITCH_ADDRESS="147.11.86.11"
+# BASE_SWITCH_OID="1.3.6.1.4.1.318.1.1.4.4.2.1.3"
+# power_on_device()
+# {
+#    echo "Powering on device $1"
+#    snmpset -v1 -cprivate $SWITCH_ADDRESS $BASE_SWITCH_OID.$1 i 1 >> /dev/null
+# }
+
+# power_off_device()
+# {
+#    echo "Powering off device $1"
+#    snmpset -v1 -cprivate $SWITCH_ADDRESS $BASE_SWITCH_OID.$1 i 2 >> /dev/null
+# }
+
+# reboot_device()
+# {
+#    echo "Rebooting device $1"
+#    snmpset -v1 -cprivate $SWITCH_ADDRESS $BASE_SWITCH_OID.$1 i 3 >> /dev/null
+# }
+
+
 import logging
 import os
 
@@ -38,21 +59,21 @@ class apc (PowerControl):
 
     def num_ports (self):
         m = Manager (self.URI, "public", 2)
-        return m.ePDUIdentDeviceNumOutlets
+        return m.rPDUOutletDevNumTotalOutlets
 
     def poweron (self, port):
         numeric = int(port);
         m = Manager (self.URI, "private", 2)
-        m.sPDUOutletCtl[port] = 'outletOn'
+        m.rPDUOutletControlOutletCommand[port] = 'immediateOn'
 
     def poweroff (self, port):
         m = Manager (self.URI, "private", 2)
-        m.sPDUOutletCtl[port] = 'outletOff'
+        m.rPDUOutletControlOutletCommand[port] = 'immediateOff'
 
     def powerstatus (self, port):
         m = Manager (self.URI, "public", 2)
-        if m.ePDUOutletStatusOutletState[port] == 2:
+        if m.rPDUOutletStatusOutletState[port] == 2:
             return 1
-        if m.ePDUOutletStatusOutletState[port] == 1:
+        if m.rPDUOutletStatusOutletState[port] == 1:
             return 0
         return -1;

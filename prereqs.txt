@@ -1,0 +1,23 @@
+sudo apt install python3-sqlalchemy python3-pysimplesoap python3-snimpy snmp-mibs-downloader
+
+python3-sqlalchemy
+python3-pycurl python3-pysimplesoap
+libsmi2ldbl python3-ply python3-pycryptodome python3-pysmi python3-pysnmp4 python3-snimpy
+smistrip snmp-mibs-downloader
+
+PowerNet-MIB::rPDUIdentDeviceNumOutlets.0 = INTEGER: 8
+
+PowerNet-MIB::rPDUOutletDevNumCntrlOutlets.0 = INTEGER: 8
+PowerNet-MIB::rPDUOutletDevNumTotalOutlets.0 = INTEGER: 8
+PowerNet-MIB::rPDUOutletDevMonitoredOutlets.0 = INTEGER: 0
+PowerNet-MIB::rPDUOutletControlOutletCommand.1 = INTEGER: immediateOn(1)
+PowerNet-MIB::rPDUOutletStatusIndex.1 = INTEGER: 1
+PowerNet-MIB::rPDUOutletStatusOutletState.4 = INTEGER: outletStatusOn(1)
+
+snmpwalk -v1 -c public 147.11.86.11 1
+snmpwalk -v1 -m ALL -c public 147.11.86.11 1
+snmpget -v1 -m All -c public 147.11.86.11  PowerNet-MIB::rPDUOutletControlOutletCommand.1 1
+snmpset -v1 -m All -c private 147.11.86.11  PowerNet-MIB::rPDUOutletControlOutletCommand.1 = 2
+
+PowerNet-MIB::rPDUOutletControlOutletCommand.2 = INTEGER: immediateOff(2)
+
