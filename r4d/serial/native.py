@@ -15,4 +15,4 @@ class native (SerialControl):
         return 8
 
     def get_udpport (self, port):
-        return (7000 + port)
+        return (2000 + port)
