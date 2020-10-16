@@ -52,12 +52,13 @@ class testbox (PowerControl):
         return -1
 
 class testboxatx (testbox):
-    def atx_toggle(self):
-        with open("/sys/class/leds/lamobo_r1:opto:relay/brightness", "w") as gpio:
-            gpio.write("255")
-            time.sleep(0.5)
-            gpio.write("0")
+    __mapper_args__ = {'polymorphic_identity': 'testbox-atx'}
 
     def poweron (self, port):
         super().poweron(port)
-        atx_toggle()
+        with open("/sys/class/leds/lamobo_r1:opto:relay/brightness", "w") as gpio:
+            time.sleep(10)
+            gpio.write("255")
+            gpio.seek(0)
+            time.sleep(0.5)
+            gpio.write("0")
