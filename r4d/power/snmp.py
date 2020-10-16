@@ -28,7 +28,6 @@ from snimpy.manager import load
 log = logging.getLogger (__name__)
 
 mibpath = os.path.dirname (__file__)
-load (os.path.join (mibpath, "GUDEADS-EPC8x-MIB.txt"))
 
 def register (parent):
     log.debug ("register " + __name__)
@@ -36,6 +35,7 @@ def register (parent):
 
 class pc8210 (PowerControl):
     __mapper_args__ = {'polymorphic_identity': 'pc8210'}
+    load (os.path.join (mibpath, "GUDEADS-EPC8x-MIB.txt"))
 
     def num_ports (self):
         m = Manager (self.URI, "public", 2)
