@@ -8,5 +8,6 @@ Type=simple
 DynamicUser=yes
 StateDirectory=r4d
 ExecStart=/usr/bin/r4dd -c /etc/r4d.cfg
+SupplementaryGroups=leds
 [Install]
 WantedBy=default.target
