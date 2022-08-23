@@ -23,6 +23,7 @@ import logging
 from base64 import b64encode
 from dataclasses import dataclass, field
 from http.server import HTTPServer
+from http import HTTPStatus
 from pysimplesoap.server import SoapDispatcher, SOAPHandler
 
 log = logging.getLogger ()
@@ -44,14 +45,44 @@ class BasicAuthentication:
 
 
 class CustomSOAPHandler(SOAPHandler):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, auth=None, **kwargs):
+        self.key = None
+        if all(auth):
+            (user, passwd) = auth
+            self.key = BasicAuthentication(username=user, password=passwd)
+            log.info("Basic Authentication successful created.")
+        else:
+            log.info(f"Error in creation Basic Authentication. Authentication input: {auth}")
+
         super().__init__(*args, **kwargs)
 
+    def _authentication(self):
+        """
+        Authenticate if headers='Authorization' the same as the dataclass self.key
+
+        If it is the same return True. If it is not the same write the response
+        header and the response and return False.
+        """
+
+        key_head = self.headers.get("Authorization")
+
+        if self.key == key_head:
+            log.info(f"Authentication from {self.address_string()} successful")
+            return True
+
+        log.info(f"Authentication from {self.address_string()} not successful")
+
+        self.send_response(HTTPStatus.UNAUTHORIZED)
+        self.end_headers()
+        return False
+
     def do_GET(self):
-        super().do_GET()
+        if self._authentication():
+            super().do_GET()
 
     def do_POST(self):
-        super().do_POST()
+        if self._authentication():
+            super().do_POST()
 
     def log_message(self, format, *args):
         """Log HTTP requests"""
