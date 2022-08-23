@@ -28,7 +28,7 @@ else:
 
 from pysimplesoap.server import SoapDispatcher, SOAPHandler, WSGISOAPHandler
 
-log = logging.getLogger (__name__)
+log = logging.getLogger ()
 
 class R4DSoapService (object):
     def __init__(self, db):
@@ -40,7 +40,7 @@ class R4DSoapService (object):
             namespace = "http://ci-rt.linutronix.de/r4d.wsdl",
             prefix="r4d",
             pretty = True,
-            debug = True)
+            debug = log.level is logging.DEBUG)
         self.db = db
 
     def soap (self, f, name = None, returns = None, args = None, doc = None):
@@ -50,7 +50,11 @@ class R4DSoapService (object):
                                              returns = returns,
                                              args = args, doc = doc)
 
+        log.info(f"Added SOAP Service '{name}'")
+
     def server_start(self, listen, port):
         httpd = HTTPServer ((listen, port), SOAPHandler)
         httpd.dispatcher = self.__dispatcher
+
+        log.info("Server runs.")
         httpd.serve_forever ()
