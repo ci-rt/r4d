@@ -30,6 +30,8 @@ else:
 log = logging.getLogger (__name__)
 
 class PresetConfigParser (RawConfigParser):
+    """Custom parser for .cfg files"""
+
     def __init__ (self, presets):
         super().__init__(self, allow_no_value = True)
         for s in presets.keys():
@@ -38,6 +40,11 @@ class PresetConfigParser (RawConfigParser):
                 self.set (s,k,v)
 
 class R4DdConfig (object):
+    """
+    Config class.
+    Creates the PresetConfigParser with default config.
+    Reads/overwrites it with the specified configname.
+    """
 
     def __init__ (self, configname = None):
         log.debug ("r4dd_config.__init__")
@@ -65,6 +72,11 @@ class R4DdConfig (object):
         }
 
     def load_config (self, name):
+        """
+        Reads the specified config.
+        If the specified config file cannot be read, the default config is used.
+        """
+
         log.info(f"Reading config file '{name}'")
 
         config = self.__config.read (name)
