@@ -47,4 +47,4 @@ class R4Dd (object):
         listen = self.__config.r4dd_conf ("listen")
         port = int (self.__config.r4dd_conf ("port"))
 
-        self.__service.server (listen, port)
+        self.__service.server_start(listen, port)

@@ -50,7 +50,7 @@ class R4DSoapService (object):
                                              returns = returns,
                                              args = args, doc = doc)
 
-    def server (self, listen, port):
+    def server_start(self, listen, port):
         httpd = HTTPServer ((listen, port), SOAPHandler)
         httpd.dispatcher = self.__dispatcher
         httpd.serve_forever ()
