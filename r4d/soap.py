@@ -35,6 +35,13 @@ class CustomSOAPHandler(SOAPHandler):
     def do_POST(self):
         super().do_POST()
 
+    def log_message(self, format, *args):
+        """Log HTTP requests"""
+        log.info(f"New request from {self.address_string()} with arguments '{args}'")
+
+        if "headers" in self.__dict__.keys():
+            log.debug(f"Request header: \n{self.headers}")
+
 class R4DSoapService (object):
     def __init__(self):
         log.debug ("R4DSoapService.__init__")
