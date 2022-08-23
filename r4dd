@@ -21,13 +21,22 @@
 # along with r4d.  If not, see <http://www.gnu.org/licenses/>.
 
 import logging
+import signal
 import sys
 
 from argparse import ArgumentParser, FileType
 from r4d.r4dd import R4Dd
 from r4d.version import r4d_version
 
+
+def exit_handler(signal_received, frame):
+    print('Exit Server...')
+    sys.exit()
+
+
 if __name__ == "__main__":
+    signal.signal(signal.SIGINT, exit_handler)
+
     parser = ArgumentParser (description = 'R4D Daemon v' + r4d_version)
     parser.add_argument ('-c', '--config',
                          help = 'use configuration CONFIG',
