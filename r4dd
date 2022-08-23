@@ -34,6 +34,24 @@ def exit_handler(signal_received, frame):
     sys.exit()
 
 
+def create_file_handler(file_path):
+    """Creates a FileHandler with path file_path.log"""
+
+    if not file_path:
+        return []
+
+    if file_path.split(".")[-1] != "log":
+        file_path = f"{file_path}.log"
+
+    print(f"Created logging file '{file_path}'.")
+
+    return [logging.FileHandler(
+        filename=file_path,
+        mode="w",
+        delay=False,
+    )]
+
+
 if __name__ == "__main__":
     signal.signal(signal.SIGINT, exit_handler)
 
