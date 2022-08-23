@@ -24,6 +24,17 @@ from pysimplesoap.server import SoapDispatcher, SOAPHandler
 
 log = logging.getLogger ()
 
+
+class CustomSOAPHandler(SOAPHandler):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def do_GET(self):
+        super().do_GET()
+
+    def do_POST(self):
+        super().do_POST()
+
 class R4DSoapService (object):
     def __init__(self):
         log.debug ("R4DSoapService.__init__")
