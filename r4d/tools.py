@@ -27,10 +27,10 @@ log = logging.getLogger (__name__)
 
 def register_modules (parent, modul):
     for _, x, _ in iter_modules (modul.__path__):
-        text = "register module " + x + ": "
+        text = f"{modul.__name__}.{x}"
         try:
-            log.info (modul.__name__ + "." + x)
-            module = import_module (modul.__name__ + "." + x)
+            log.info (f"Trying to register module {text}...")
+            module = import_module (text)
             module.register (parent)
             log.info (text + "OK.")
         except Exception as e:
