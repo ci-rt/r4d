@@ -19,10 +19,28 @@
 # along with r4d.  If not, see <http://www.gnu.org/licenses/>.
 
 import logging
+
+from base64 import b64encode
+from dataclasses import dataclass, field
 from http.server import HTTPServer
 from pysimplesoap.server import SoapDispatcher, SOAPHandler
 
 log = logging.getLogger ()
+
+@dataclass
+class BasicAuthentication:
+    username: str
+    password: str
+    key: str = field(init=False, repr=False)
+
+    def __post_init__(self):
+        self.key = b64encode(bytes(f"{self.username}:{self.password}", "utf-8")).decode(
+            "ascii"
+        )
+
+    def __eq__(self, key_to_check):
+        """Compare key hash to input key hash"""
+        return f"Basic {self.key}" == key_to_check
 
 
 class CustomSOAPHandler(SOAPHandler):
