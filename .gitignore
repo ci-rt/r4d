@@ -9,6 +9,7 @@
 *.pyc
 
 __pycache__/
+venv/
 dist/
 generated-doc/
 r4d.egg-info/
