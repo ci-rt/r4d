@@ -46,5 +46,7 @@ class R4Dd (object):
 
         listen = self.__config.r4dd_conf ("listen")
         port = int (self.__config.r4dd_conf ("port"))
+        user = self.__config.db_conf ("user")
+        passwd = self.__config.db_conf ("password")
 
-        self.__service.server_start(listen, port)
+        self.__service.server_start(listen, port, user, passwd)

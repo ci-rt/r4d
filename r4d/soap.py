@@ -20,6 +20,7 @@
 
 import logging
 
+from functools import partial
 from base64 import b64encode
 from dataclasses import dataclass, field
 from http.server import HTTPServer
@@ -112,8 +113,8 @@ class R4DSoapService (object):
 
         log.info(f"Added SOAP Service '{name}'")
 
-    def server_start(self, listen, port):
-        httpd = HTTPServer ((listen, port), SOAPHandler)
+    def server_start(self, listen, port, user, passwd):
+        httpd = HTTPServer ((listen, port), partial(CustomSOAPHandler, auth=(user, passwd)))
         httpd.dispatcher = self.__dispatcher
 
         log.info("Server runs.")
