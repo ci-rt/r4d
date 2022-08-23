@@ -53,6 +53,12 @@ if __name__ == "__main__":
                         dest="loglevel",
                         const=logging.INFO)
 
+    parser.add_argument('-d', '--debug',
+                        help="enable debugging statements",
+                        action="store_const",
+                        dest="loglevel",
+                        const=logging.DEBUG)
+
     args = parser.parse_args ()
 
     # If no loglevel is declared root logger is created with level logging.WARNING
