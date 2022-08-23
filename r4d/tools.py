@@ -25,14 +25,14 @@ from pkgutil import iter_modules
 
 log = logging.getLogger (__name__)
 
-def register_modules (parent, modul):
-    for _, x, _ in iter_modules (modul.__path__):
-        text = f"{modul.__name__}.{x}"
+def register_modules (parent, module):
+    for _, file_name, _ in iter_modules (module.__path__):
+        module_path = f"{module.__name__}.{file_name}"
         try:
-            log.info (f"Trying to register module {text}...")
-            module = import_module (text)
+            log.info (f"Trying to register module {module_path}...")
+            module = import_module (module_path)
             module.register (parent)
-            log.info (text + "OK.")
+            log.info (module_path + "OK.")
         except Exception as e:
-            log.error (text + "failed.")
+            log.error (module_path + "failed.")
             log.error (e)
