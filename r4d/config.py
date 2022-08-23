@@ -30,8 +30,8 @@ else:
 log = logging.getLogger (__name__)
 
 class PresetConfigParser (RawConfigParser):
-    def __init__ (self, presets, **args):
-        RawConfigParser.__init__(self, **args)
+    def __init__ (self, presets):
+        super().__init__(self, allow_no_value = True)
         for s in presets.keys():
             self.add_section (s)
             for k,v in presets[s].items():
@@ -48,7 +48,7 @@ class R4DdConfig (object):
                                  'user': None,
                                  'password': None} }
 
-        self.__config = PresetConfigParser (presets, allow_no_value = True)
+        self.__config = PresetConfigParser (presets)
         if configname:
             self.load_config (configname)
 
