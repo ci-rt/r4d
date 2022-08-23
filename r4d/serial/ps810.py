@@ -25,8 +25,7 @@ from r4d.db import SerialControl
 log = logging.getLogger (__name__)
 
 def register (parent):
-    log.debug ("register " + __name__)
-    parent._add_model ('PS810', ps810)
+    parent.add_model ('PS810', ps810)
 
 class ps810 (SerialControl):
     __mapper_args__ = {'polymorphic_identity': 'PS810'}
