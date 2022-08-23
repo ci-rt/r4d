@@ -41,16 +41,26 @@ class R4DdConfig (object):
 
     def __init__ (self, configname = None):
         log.debug ("r4dd_config.__init__")
-        presets = { 'r4dd': {'listen': '0.0.0.0',
-                                 'port': 8008},
-                    'db':       {'echo': '0',
-                                 'uri': 'sqlite:///r4d.sqlite',
-                                 'user': None,
-                                 'password': None} }
 
-        self.__config = PresetConfigParser (presets)
+        self.__config = PresetConfigParser (self._create_default_config())
         if configname:
             self.load_config (configname)
+
+    def _create_default_config(self):
+        """Create a basic working configuration."""
+
+        return {
+            "r4dd": {
+                "listen": "0.0.0.0",
+                "port": 8008
+            },
+            "db": {
+                "echo": "0",
+                "uri": "sqlite:///r4d.sqlite",
+                "user": None,
+                "password": None,
+            },
+        }
 
     def load_config (self, name):
         self.__config.read (name)
