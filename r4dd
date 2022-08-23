@@ -47,17 +47,16 @@ if __name__ == "__main__":
                          type = FileType ('w'),
                          default = sys.stderr)
 
-    parser.add_argument ('-v', '--verbose',
-                         nargs = '?',
-                         help = 'enable verbose messages',
-                         const = "INFO")
+    parser.add_argument('-v', '--verbose',
+                        help='enable verbose messages',
+                        action="store_const",
+                        dest="loglevel",
+                        const=logging.INFO)
 
     args = parser.parse_args ()
 
-    loglevel = None
-    if args.verbose:
-        loglevel = getattr (logging, args.verbose.upper (), None)
-    logging.basicConfig (stream = args.logfile, level = loglevel)
+    # If no loglevel is declared root logger is created with level logging.WARNING
+    logging.basicConfig (stream = args.logfile, level = args.loglevel)
 
     r4dd = R4Dd (args.config)
 
