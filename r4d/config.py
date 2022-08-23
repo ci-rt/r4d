@@ -45,6 +45,8 @@ class R4DdConfig (object):
         self.__config = PresetConfigParser (self._create_default_config())
         if configname:
             self.load_config (configname)
+        else:
+            log.warning("No configname defined. Default config will be used.")
 
     def _create_default_config(self):
         """Create a basic working configuration."""
@@ -63,7 +65,14 @@ class R4DdConfig (object):
         }
 
     def load_config (self, name):
-        self.__config.read (name)
+        log.info(f"Reading config file '{name}'")
+
+        config = self.__config.read (name)
+        if not config:
+            log.warning(
+                f"Specified config file '{name}' cant be read. Default config"
+                " will be used"
+            )
 
     def r4dd_conf (self, name):
         return self.__config.get ("r4dd", name)
