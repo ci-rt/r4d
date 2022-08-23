@@ -26,9 +26,8 @@ from r4d.db import PowerControl
 log = logging.getLogger (__name__)
 
 def register (parent):
-    log.debug ("register " + __name__)
-    parent._add_model ('testbox', testbox)
-    parent._add_model ('testbox-atx', testboxatx)
+    parent.add_model ('testbox', testbox)
+    parent.add_model ('testbox-atx', testboxatx)
 
 class testbox (PowerControl):
     __mapper_args__ = {'polymorphic_identity': 'testbox'}

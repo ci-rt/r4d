@@ -48,7 +48,8 @@ class PowerService (object):
         self.__models = {}
         register_modules (self, r4d.power)
 
-    def _add_model (self, model, f):
+    def add_model (self, model, f):
+        log.debug(f"_add_power_model: '{model}'")
         self.__models.update ({model: f})
 
     def get_models (self):

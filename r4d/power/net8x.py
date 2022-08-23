@@ -33,8 +33,7 @@ else:
 log = logging.getLogger (__name__)
 
 def register (parent):
-    log.debug ("register " + __name__)
-    parent._add_model ('net8x', net8x)
+    parent.add_model ('net8x', net8x)
 
 class net8xHTMLParser(HTMLParser):
     old = ""

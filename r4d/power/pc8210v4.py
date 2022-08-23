@@ -31,8 +31,7 @@ mibpath = os.path.dirname (__file__)
 load (os.path.join (mibpath, "GUDEADS-EPC8210-MIB.txt"))
 
 def register (parent):
-    log.debug ("register " + __name__)
-    parent._add_model ('pc8210v4', pc8210)
+    parent.add_model ('pc8210v4', pc8210)
 
 class pc8210 (PowerControl):
     __mapper_args__ = {'polymorphic_identity': 'pc8210v4'}
