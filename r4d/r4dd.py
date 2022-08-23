@@ -35,7 +35,7 @@ class R4Dd (object):
         log.debug ("r4dd.__init__")
         self.__config = R4DdConfig (configname = configname)
         self.__db = R4DDataBase (self.__config)
-        self.__service = R4DSoapService (self.__db)
+        self.__service = R4DSoapService ()
         self.__power = PowerService (self.__db, self.__service)
         self.__rack = RackService (self.__db, self.__service)
         self.__serial = SerialService (self.__db, self.__service)

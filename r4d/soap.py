@@ -25,7 +25,7 @@ from pysimplesoap.server import SoapDispatcher, SOAPHandler
 log = logging.getLogger ()
 
 class R4DSoapService (object):
-    def __init__(self, db):
+    def __init__(self):
         log.debug ("R4DSoapService.__init__")
         self.__dispatcher = SoapDispatcher (
             'r4d',
@@ -35,7 +35,6 @@ class R4DSoapService (object):
             prefix="r4d",
             pretty = True,
             debug = log.level is logging.DEBUG)
-        self.db = db
 
     def soap (self, f, name = None, returns = None, args = None, doc = None):
         if not name:
