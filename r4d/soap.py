@@ -19,14 +19,8 @@
 # along with r4d.  If not, see <http://www.gnu.org/licenses/>.
 
 import logging
-import sys
-
-if sys.version_info >= (3,0):
-    from http.server import HTTPServer
-else:
-    from BaseHTTPServer import HTTPServer
-
-from pysimplesoap.server import SoapDispatcher, SOAPHandler, WSGISOAPHandler
+from http.server import HTTPServer
+from pysimplesoap.server import SoapDispatcher, SOAPHandler
 
 log = logging.getLogger ()
 
