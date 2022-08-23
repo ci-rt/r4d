@@ -24,7 +24,7 @@ import logging
 import signal
 import sys
 
-from argparse import ArgumentParser, FileType
+from argparse import ArgumentParser
 from r4d.r4dd import R4Dd
 from r4d.version import r4d_version
 
@@ -62,8 +62,7 @@ if __name__ == "__main__":
 
     parser.add_argument ('-l', '--logfile',
                          help = 'log to LOGFILE',
-                         type = FileType ('w'),
-                         default = sys.stderr)
+                         type = str)
 
     parser.add_argument('-v', '--verbose',
                         help='enable verbose messages',
@@ -80,7 +79,8 @@ if __name__ == "__main__":
     args = parser.parse_args ()
 
     # If no loglevel is declared root logger is created with level logging.WARNING
-    logging.basicConfig (stream = args.logfile, level = args.loglevel)
+    logging.basicConfig (level = args.loglevel,
+                         handlers=[logging.StreamHandler()] + create_file_handler(args.logfile))
 
     r4dd = R4Dd (args.config)
 
